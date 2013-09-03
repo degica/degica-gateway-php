@@ -7,10 +7,17 @@
         }
     ],
 
+    "autoload": {
+        "psr-0": {
+            "Degica\\": "lib"
+        }
+    },
+
     "require": {
     },
 
     "require-dev": {
+        "d11wtq/boris": "1.0.*",
         "phpunit/phpunit": "3.7.*"
     }
 }

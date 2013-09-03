@@ -1,0 +1,16 @@
+{
+    "name": "degica/gateway-php",
+    "authors": [
+        {
+            "name": "Gregor MacDougall",
+            "email": "gmacdougall@degica.com"
+        }
+    ],
+
+    "require": {
+    },
+
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    }
+}

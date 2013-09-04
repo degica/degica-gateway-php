@@ -9,4 +9,16 @@ class PaymentMethod {
     const MOBILE_PAYMENT = 'mobile_payment';
     const PAY_EASY = 'pay_easy';
     const PAYPAL = 'paypal';
+
+    public static function all()
+    {
+        return array(
+            self::BANK_TRANSFER,
+            self::CREDIT_CARD,
+            self::KONBINI,
+            self::MOBILE_PAYMENT,
+            self::PAY_EASY,
+            self::PAYPAL,
+        );
+    }
 }

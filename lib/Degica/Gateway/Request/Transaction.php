@@ -12,8 +12,8 @@ class Transaction {
     }
 
     public function getSignedUrl(\Degica\Gateway\Transaction $transaction) {
-        $secret_key = $transaction->merchant->api_key;
-        $endpoint = "/{$this->locale}/api/{$transaction->merchant->merchant_slug}/transactions/{$transaction->payment_method}/new";
+        $secret_key = $transaction->getMerchant()->getApiKey();
+        $endpoint = "/{$this->locale}/api/{$transaction->getMerchant()->getMerchantSlug()}/transactions/{$transaction->payment_method}/new";
 
         $params = array(
         "transaction[amount]={$transaction->amount}",

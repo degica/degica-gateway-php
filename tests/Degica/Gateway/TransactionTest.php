@@ -112,4 +112,19 @@ class TransactionTest extends \PHPUnit_Framework_TestCase
     {
         $this->transaction->setPaymentMethod('something_else');
     }
+
+    public function testInvalidTransaction()
+    {
+        $this->assertFalse($this->transaction->isValid());
+    }
+
+    public function testValidTransaction()
+    {
+        $this->transaction->setAmount('1.23');
+        $this->transaction->setExternalOrderNum('abcd123');
+        $this->transaction->setReturnUrl('http://return.to.me/');
+        $this->transaction->setCancelUrl('http://cancel.me/');
+        $this->transaction->setTax('0.12');
+        $this->assertTrue($this->transaction->isValid());
+    }
 }

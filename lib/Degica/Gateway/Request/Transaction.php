@@ -13,15 +13,15 @@ class Transaction {
 
     public function getSignedUrl(\Degica\Gateway\Transaction $transaction) {
         $secret_key = $transaction->getMerchant()->getApiKey();
-        $endpoint = "/{$this->locale}/api/{$transaction->getMerchant()->getMerchantSlug()}/transactions/{$transaction->payment_method}/new";
+        $endpoint = "/{$this->locale}/api/{$transaction->getMerchant()->getMerchantSlug()}/transactions/{$transaction->getPaymentMethod()}/new";
 
         $params = array(
-        "transaction[amount]={$transaction->amount}",
-        "transaction[currency]={$transaction->currency}",
-        "transaction[external_order_num]={$transaction->external_order_num}",
-        "transaction[return_url]={$transaction->return_url}",
-        "transaction[cancel_url]={$transaction->cancel_url}",
-        "transaction[tax]={$transaction->tax}",
+        "transaction[amount]={$transaction->getAmount()}",
+        "transaction[currency]={$transaction->getCurrency()}",
+        "transaction[external_order_num]={$transaction->getExternalOrderNum()}",
+        "transaction[return_url]={$transaction->getReturnUrl()}",
+        "transaction[cancel_url]={$transaction->getCancelUrl()}",
+        "transaction[tax]={$transaction->getTax()}",
         "timestamp=" . $this->time,
         );
         sort($params);

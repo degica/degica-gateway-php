@@ -3,14 +3,14 @@
 namespace Degica\Gateway;
 
 class Transaction {
-    public $merchant;
-    public $payment_method = PaymentMethod::CREDIT_CARD;
-    public $amount;
-    public $cancel_url;
-    public $currency = 'JPY';
-    public $external_order_num;
-    public $return_url;
-    public $tax;
+    private $merchant;
+    private $payment_method = PaymentMethod::CREDIT_CARD;
+    private $amount;
+    private $cancel_url;
+    private $currency = 'JPY';
+    private $external_order_num;
+    private $return_url;
+    private $tax;
 
     public function __construct(Merchant $merchant) {
         $this->merchant = $merchant;
@@ -99,5 +99,18 @@ class Transaction {
             throw new \InvalidArgumentException("Tax must be numeric, got `$tax`.");
         }
         $this->tax = $tax;
+    }
+
+    public function isValid() {
+        $errors = array();
+        if (empty($this->merchant)) { $errors[] = "merchant is empty"; }
+        if (empty($this->payment_method)) { $errors[] = "payment_method is empty"; }
+        if (empty($this->amount)) { $errors[] = "amount is empty"; }
+        if (empty($this->cancel_url)) { $errors[] = "cancel_url is empty"; }
+        if (empty($this->currency)) { $errors[] = "currency is empty"; }
+        if (empty($this->external_order_num)) { $errors[] = "external_order_num is empty"; }
+        if (empty($this->return_url)) { $errors[] = "return_url is empty"; }
+        if (empty($this->tax)) { $errors[] = "tax is empty"; }
+        return empty($errors);
     }
 }

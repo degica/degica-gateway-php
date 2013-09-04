@@ -16,13 +16,13 @@ class Transaction {
         $endpoint = "/{$this->locale}/api/{$transaction->getMerchant()->getMerchantSlug()}/transactions/{$transaction->getPaymentMethod()}/new";
 
         $params = array(
-        "transaction[amount]={$transaction->getAmount()}",
-        "transaction[currency]={$transaction->getCurrency()}",
-        "transaction[external_order_num]={$transaction->getExternalOrderNum()}",
-        "transaction[return_url]={$transaction->getReturnUrl()}",
-        "transaction[cancel_url]={$transaction->getCancelUrl()}",
-        "transaction[tax]={$transaction->getTax()}",
-        "timestamp=" . $this->time,
+            "transaction[amount]={$transaction->getAmount()}",
+            "transaction[currency]={$transaction->getCurrency()}",
+            "transaction[external_order_num]={$transaction->getExternalOrderNum()}",
+            "transaction[return_url]={$transaction->getReturnUrl()}",
+            "transaction[cancel_url]={$transaction->getCancelUrl()}",
+            "transaction[tax]={$transaction->getTax()}",
+            "timestamp=" . $this->time,
         );
         sort($params);
 

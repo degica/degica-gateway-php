@@ -3,7 +3,7 @@
 namespace Degica\Gateway;
 
 class Transaction {
-    private $merchant;
+    public $merchant;
     public $payment_method = PaymentMethod::CREDIT_CARD;
     public $amount;
     public $cancel_url;

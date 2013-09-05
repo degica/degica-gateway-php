@@ -12,6 +12,10 @@ class Transaction {
     }
 
     public function getSignedUrl(\Degica\Gateway\Transaction $transaction) {
+        if (!$transaction->isValid())
+        {
+            throw new InvalidTransactionException();
+        }
         $secret_key = $transaction->getMerchant()->getApiKey();
         $endpoint = "/{$this->locale}/api/{$transaction->getMerchant()->getMerchantSlug()}/transactions/{$transaction->getPaymentMethod()}/new";
 

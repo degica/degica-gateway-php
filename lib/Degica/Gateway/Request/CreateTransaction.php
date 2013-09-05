@@ -2,7 +2,7 @@
 
 namespace Degica\Gateway\Request;
 
-class Transaction {
+class CreateTransaction {
     private $locale;
     public $time;
 

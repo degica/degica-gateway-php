@@ -3,12 +3,26 @@
 namespace Degica\Gateway\Request;
 
 class CreateTransaction {
+    const SANDBOX = 1;
+    const PRODUCTION = 2;
+
     private $locale;
+    private $environment = self::PRODUCTION;
     public $time;
 
     public function __construct($locale = 'ja') {
         $this->locale = $locale;
         $this->time = time();
+    }
+
+    public function sandboxMode()
+    {
+        $this->environment = self::SANDBOX;
+    }
+
+    public function productionMode()
+    {
+        $this->environment = self::PRODUCTION;
     }
 
     public function getSignedUrl(\Degica\Gateway\Transaction $transaction) {
@@ -35,6 +49,18 @@ class CreateTransaction {
 
         $hmac = hash_hmac('sha256', $url, $secret_key);
 
-        return "$url&hmac=$hmac";
+        return "https://{$this->host()}{$url}&hmac={$hmac}";
+    }
+
+    private function host()
+    {
+        if ($this->environment == self::SANDBOX)
+        {
+            return "gateway-sandbox.degica.com";
+        }
+        elseif ($this->environment == self::PRODUCTION)
+        {
+            return "gateway.degica.com";
+        }
     }
 }

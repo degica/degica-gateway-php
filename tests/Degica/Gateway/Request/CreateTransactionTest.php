@@ -91,11 +91,11 @@ class CreateTransactionTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $customer->expects($this->any())
-            ->method('getFirstName')
+            ->method('getGivenName')
             ->will($this->returnValue('John'));
 
         $customer->expects($this->any())
-            ->method('getLastName')
+            ->method('getFamilyName')
             ->will($this->returnValue('Smith'));
 
         return $customer;

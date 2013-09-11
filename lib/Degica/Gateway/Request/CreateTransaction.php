@@ -46,10 +46,10 @@ class CreateTransaction {
         $customer = $transaction->getCustomer();
         if ($customer) {
             $customer_fields = array(
-                'first_name' => $customer->getFirstName(),
-                'first_name_kana' => $customer->getFirstNameKana(),
-                'last_name' => $customer->getLastName(),
-                'last_name_kana' => $customer->getLastNameKana(),
+                'first_name' => $customer->getGivenName(),
+                'first_name_kana' => $customer->getGivenNameKana(),
+                'last_name' => $customer->getFamilyName(),
+                'last_name_kana' => $customer->getFamilyNameKana(),
             );
             foreach ($customer_fields as $key => $val) {
                 if ($val) {

@@ -25,10 +25,10 @@ $transaction->setTax('1.24');
 
 // Optional Customer Information
 $customer = new Customer();
-$customer->setLastName('山田');
-$customer->setLastNameKana('ヤマダ');
-$customer->setFirstName('太郎');
-$customer->setFirstNameKana('タロウ');
+$customer->setFamilyName('山田');
+$customer->setFamilyNameKana('ヤマダ');
+$customer->setGivenName('太郎');
+$customer->setGivenNameKana('タロウ');
 $transaction->setCustomer($customer);
 
 $create_transaction = new CreateTransaction('ja'); // 'ja' = Japanese, 'en' = English

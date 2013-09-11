@@ -3,40 +3,40 @@
 namespace Degica\Gateway;
 
 class Customer {
-    private $first_name;
-    private $first_name_kana;
-    private $last_name;
-    private $last_name_kana;
+    private $given_name;
+    private $given_name_kana;
+    private $family_name;
+    private $family_name_kana;
 
-    public function getFirstName() {
-        return $this->first_name;
+    public function getGivenName() {
+        return $this->given_name;
     }
 
-    public function setFirstName($first_name) {
-        $this->first_name = $first_name;
+    public function setGivenName($given_name) {
+        $this->given_name = $given_name;
     }
 
-    public function getFirstNameKana() {
-        return $this->first_name_kana;
+    public function getGivenNameKana() {
+        return $this->given_name_kana;
     }
 
-    public function setFirstNameKana($first_name_kana) {
-        $this->first_name_kana = $first_name_kana;
+    public function setGivenNameKana($given_name_kana) {
+        $this->given_name_kana = $given_name_kana;
     }
 
-    public function getLastName() {
-        return $this->last_name;
+    public function getFamilyName() {
+        return $this->family_name;
     }
 
-    public function setLastName($last_name) {
-        $this->last_name = $last_name;
+    public function setFamilyName($family_name) {
+        $this->family_name = $family_name;
     }
 
-    public function getLastNameKana() {
-        return $this->last_name_kana;
+    public function getFamilyNameKana() {
+        return $this->family_name_kana;
     }
 
-    public function setLastNameKana($last_name_kana) {
-        $this->last_name_kana = $last_name_kana;
+    public function setFamilyNameKana($family_name_kana) {
+        $this->family_name_kana = $family_name_kana;
     }
 }

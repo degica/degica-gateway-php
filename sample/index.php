@@ -2,6 +2,7 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
+use Degica\Gateway\Customer;
 use Degica\Gateway\Merchant;
 use Degica\Gateway\PaymentMethod;
 use Degica\Gateway\Transaction;
@@ -12,6 +13,7 @@ $merchant = new Merchant();
 $merchant->setMerchantSlug('degica-mart');
 $merchant->setApiKey('42f89dc68c192645c2a752e907fcf648c2ff6782f7c18dffa0b6decd3ec7b030');
 
+// Basic Transaction Information
 $transaction = new Transaction($merchant);
 $transaction->setPaymentMethod(PaymentMethod::CREDIT_CARD);
 $transaction->setAmount('12.40');
@@ -20,6 +22,14 @@ $transaction->setCurrency('JPY');
 $transaction->setExternalOrderNum(randomString());
 $transaction->setReturnUrl('http://www.google.com/');
 $transaction->setTax('1.24');
+
+// Optional Customer Information
+$customer = new Customer();
+$customer->setLastName('山田');
+$customer->setLastNameKana('ヤマダ');
+$customer->setFirstName('太郎');
+$customer->setFirstNameKana('タロウ');
+$transaction->setCustomer($customer);
 
 $create_transaction = new CreateTransaction('ja'); // 'ja' = Japanese, 'en' = English
 $create_transaction->sandboxMode();

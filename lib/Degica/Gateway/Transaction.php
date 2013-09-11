@@ -11,6 +11,7 @@ class Transaction {
     private $external_order_num;
     private $return_url;
     private $tax;
+    private $customer;
 
     public function __construct(Merchant $merchant) {
         $this->merchant = $merchant;
@@ -99,6 +100,14 @@ class Transaction {
             throw new \InvalidArgumentException("Tax must be numeric, got `$tax`.");
         }
         $this->tax = $tax;
+    }
+
+    public function getCustomer() {
+        return $this->customer;
+    }
+
+    public function setCustomer(Customer $customer) {
+        $this->customer = $customer;
     }
 
     public function isValid() {

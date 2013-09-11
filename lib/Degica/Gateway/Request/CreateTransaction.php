@@ -42,6 +42,21 @@ class CreateTransaction {
             "transaction[tax]={$transaction->getTax()}",
             "timestamp=" . $this->time,
         );
+
+        $customer = $transaction->getCustomer();
+        if ($customer) {
+            $customer_fields = array(
+                'first_name' => $customer->getFirstName(),
+                'first_name_kana' => $customer->getFirstNameKana(),
+                'last_name' => $customer->getLastName(),
+                'last_name_kana' => $customer->getLastNameKana(),
+            );
+            foreach ($customer_fields as $key => $val) {
+                if ($val) {
+                    $params[] = "transaction[customer][$key]=$val";
+                }
+            }
+        }
         sort($params);
 
         $query_string = urldecode(implode('&', $params));

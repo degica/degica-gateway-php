@@ -69,7 +69,7 @@ class CreateTransactionTest extends \PHPUnit_Framework_TestCase
             ->method('getCustomer')
             ->will($this->returnValue($this->customer()));
 
-        $expected = 'https://gateway.degica.com/ja/api/foo/transactions/credit_card/new?timestamp=1234567890&transaction[amount]=10.00&transaction[cancel_url]=http://example.com/cancel&transaction[currency]=JPY&transaction[customer][first_name]=John&transaction[customer][last_name]=Smith&transaction[external_order_num]=R12333&transaction[return_url]=http://example.com/success&transaction[tax]=1.20&hmac=38c5f050abd0ea19f26f1fc8c4692dfee1d5dc747f062451b32b02c1bfc6a552';
+        $expected = 'https://gateway.degica.com/ja/api/foo/transactions/credit_card/new?timestamp=1234567890&transaction[amount]=10.00&transaction[cancel_url]=http://example.com/cancel&transaction[currency]=JPY&transaction[customer][family_name]=Smith&transaction[customer][given_name]=John&transaction[external_order_num]=R12333&transaction[return_url]=http://example.com/success&transaction[tax]=1.20&hmac=0240721464b33fad061a9d6832b8cac4329e71d6896fe7598a773e544859d6f5';
         $this->assertEquals($expected, $this->create_transaction->getSignedUrl($this->transaction));
     }
 

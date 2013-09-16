@@ -73,6 +73,25 @@ class CreateTransactionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $this->create_transaction->getSignedUrl($this->transaction));
     }
 
+    public function testBillingAddress()
+    {
+        $this->transaction->expects($this->any())
+            ->method('isValid')
+            ->will($this->returnValue(true));
+
+        $customer = $this->customer();
+        $this->transaction->expects($this->any())
+            ->method('getCustomer')
+            ->will($this->returnValue($customer));
+
+        $customer->expects($this->any())
+            ->method('getBillingAddress')
+            ->will($this->returnValue($this->address()));
+
+        $expected = 'transaction[customer][billing_address][city]=Kichijoji&transaction[customer][billing_address][country]=jp&transaction[customer][billing_address][extended_address]=Suite ABC&transaction[customer][billing_address][phone]=999-999-9999&transaction[customer][billing_address][state]=Toyko&transaction[customer][billing_address][street_address]=123 Sesame Street&transaction[customer][billing_address][zip_code]=123-4567';
+        $this->assertContains($expected, $this->create_transaction->getSignedUrl($this->transaction));
+    }
+
     /**
      * @expectedException \Degica\Gateway\Request\InvalidTransactionException
      */
@@ -99,5 +118,28 @@ class CreateTransactionTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue('Smith'));
 
         return $customer;
+    }
+
+    private function address()
+    {
+        $address = $this->getMockBuilder('\Degica\Gateway\Address')
+            ->getMock();
+
+        $stubs = array(
+            'getCountry' => 'jp',
+            'getPostalCode' => '123-4567',
+            'getState' => 'Toyko',
+            'getCity' => 'Kichijoji',
+            'getStreetAddress' => '123 Sesame Street',
+            'getExtendedAddress' => 'Suite ABC',
+            'getPhone' => '999-999-9999',
+        );
+
+        foreach ($stubs as $method => $val) {
+            $address->expects($this->any())
+                ->method($method)
+                ->will($this->returnValue($val));
+        }
+        return $address;
     }
 }

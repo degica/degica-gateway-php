@@ -7,6 +7,7 @@ class Customer {
     private $given_name_kana;
     private $family_name;
     private $family_name_kana;
+    private $billing_address;
 
     public function getGivenName() {
         return $this->given_name;
@@ -38,5 +39,13 @@ class Customer {
 
     public function setFamilyNameKana($family_name_kana) {
         $this->family_name_kana = $family_name_kana;
+    }
+
+    public function getBillingAddress() {
+        return $this->billing_address;
+    }
+
+    public function setBillingAddress(Address $billing_address) {
+        $this->billing_address = $billing_address;
     }
 }

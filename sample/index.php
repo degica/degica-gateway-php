@@ -2,6 +2,7 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
+use Degica\Gateway\Address;
 use Degica\Gateway\Customer;
 use Degica\Gateway\Merchant;
 use Degica\Gateway\PaymentMethod;
@@ -31,7 +32,19 @@ $customer->setGivenName('太郎');
 $customer->setGivenNameKana('タロウ');
 $transaction->setCustomer($customer);
 
-$create_transaction = new CreateTransaction('ja'); // 'ja' = Japanese, 'en' = English
+// Optional Address Information
+$address = new Address();
+$address->setCountry('jp');
+$address->setPostalCode('123-4567');
+$address->setState('AA');
+$address->setCity('Tokyo');
+$address->setStreetAddress('123 Sesame Street');
+$address->setExtendedAddress('Suite ABC');
+$address->setPhone('999-999-9999');
+$customer->setBillingAddress($address);
+
+
+$create_transaction = new CreateTransaction('en'); // 'ja' = Japanese, 'en' = English
 $create_transaction->sandboxMode();
 $url = $create_transaction->getSignedUrl($transaction);
 

@@ -56,6 +56,24 @@ class CreateTransaction {
                     $params[] = "transaction[customer][$key]=$val";
                 }
             }
+
+            $address = $customer->getBillingAddress();
+            if ($address) {
+                $address_fields = array(
+                    'country' => strtoupper($address->getCountry()),
+                    'zipcode' => $address->getPostalCode(),
+                    'state' => $address->getState(),
+                    'city' => $address->getCity(),
+                    'street_address' => $address->getStreetAddress(),
+                    'extended_address' => $address->getExtendedAddress(),
+                    'phone' => $address->getPhone(),
+                );
+                foreach ($address_fields as $key => $val) {
+                    if ($val) {
+                        $params[] = "transaction[customer][billing_address][$key]=$val";
+                    }
+                }
+            }
         }
         sort($params);
 

@@ -44,7 +44,7 @@ class CreateTransactionTest extends \PHPUnit_Framework_TestCase
         $this->transaction->expects($this->any())
             ->method('isValid')
             ->will($this->returnValue(true));
-        $expected = 'https://gateway.degica.com/ja/api/foo/transactions/credit_card/new?timestamp=1234567890&transaction[amount]=10.00&transaction[cancel_url]=http://example.com/cancel&transaction[currency]=JPY&transaction[external_order_num]=R12333&transaction[return_url]=http://example.com/success&transaction[tax]=1.20&hmac=620b0aad5f6112a29c196d3177acc6fdac58e0432352611bec668e8c039ecb1c';
+        $expected = 'https://gateway.degica.com/ja/api/foo/transactions/credit_card/new?timestamp=1234567890&transaction%5Bamount%5D=10.00&transaction%5Bcancel_url%5D=http%3A%2F%2Fexample.com%2Fcancel&transaction%5Bcurrency%5D=JPY&transaction%5Bexternal_order_num%5D=R12333&transaction%5Breturn_url%5D=http%3A%2F%2Fexample.com%2Fsuccess&transaction%5Btax%5D=1.20&hmac=0bf63581771a068c2cbfab9f79b622f3592a85bf842420d373c3ec94e4cd345c';
         $this->assertEquals($expected, $this->create_transaction->getSignedUrl($this->transaction));
     }
 
@@ -55,7 +55,7 @@ class CreateTransactionTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue(true));
         $this->create_transaction->sandboxMode();
 
-        $expected = 'https://gateway-sandbox.degica.com/ja/api/foo/transactions/credit_card/new?timestamp=1234567890&transaction[amount]=10.00&transaction[cancel_url]=http://example.com/cancel&transaction[currency]=JPY&transaction[external_order_num]=R12333&transaction[return_url]=http://example.com/success&transaction[tax]=1.20&hmac=620b0aad5f6112a29c196d3177acc6fdac58e0432352611bec668e8c039ecb1c';
+        $expected = 'https://gateway-sandbox.degica.com/ja/api/foo/transactions/credit_card/new?timestamp=1234567890&transaction%5Bamount%5D=10.00&transaction%5Bcancel_url%5D=http%3A%2F%2Fexample.com%2Fcancel&transaction%5Bcurrency%5D=JPY&transaction%5Bexternal_order_num%5D=R12333&transaction%5Breturn_url%5D=http%3A%2F%2Fexample.com%2Fsuccess&transaction%5Btax%5D=1.20&hmac=0bf63581771a068c2cbfab9f79b622f3592a85bf842420d373c3ec94e4cd345c';
         $this->assertEquals($expected, $this->create_transaction->getSignedUrl($this->transaction));
     }
 
@@ -69,7 +69,7 @@ class CreateTransactionTest extends \PHPUnit_Framework_TestCase
             ->method('getCustomer')
             ->will($this->returnValue($this->customer()));
 
-        $expected = 'https://gateway.degica.com/ja/api/foo/transactions/credit_card/new?timestamp=1234567890&transaction[amount]=10.00&transaction[cancel_url]=http://example.com/cancel&transaction[currency]=JPY&transaction[customer][family_name]=Smith&transaction[customer][given_name]=John&transaction[external_order_num]=R12333&transaction[return_url]=http://example.com/success&transaction[tax]=1.20&hmac=0240721464b33fad061a9d6832b8cac4329e71d6896fe7598a773e544859d6f5';
+        $expected = 'https://gateway.degica.com/ja/api/foo/transactions/credit_card/new?timestamp=1234567890&transaction%5Bamount%5D=10.00&transaction%5Bcancel_url%5D=http%3A%2F%2Fexample.com%2Fcancel&transaction%5Bcurrency%5D=JPY&transaction%5Bcustomer%5D%5Bfamily_name%5D=Smith&transaction%5Bcustomer%5D%5Bgiven_name%5D=John&transaction%5Bexternal_order_num%5D=R12333&transaction%5Breturn_url%5D=http%3A%2F%2Fexample.com%2Fsuccess&transaction%5Btax%5D=1.20&hmac=ee7d1e385b0efddf96ecc8f10dff4a18ecabea4f3a3dec17c2c2e427ab6fc4b0';
         $this->assertEquals($expected, $this->create_transaction->getSignedUrl($this->transaction));
     }
 
@@ -88,7 +88,7 @@ class CreateTransactionTest extends \PHPUnit_Framework_TestCase
             ->method('getBillingAddress')
             ->will($this->returnValue($this->address()));
 
-        $expected = 'transaction[customer][billing_address][city]=Kichijoji&transaction[customer][billing_address][country]=jp&transaction[customer][billing_address][extended_address]=Suite ABC&transaction[customer][billing_address][phone]=999-999-9999&transaction[customer][billing_address][state]=Toyko&transaction[customer][billing_address][street_address]=123 Sesame Street&transaction[customer][billing_address][zip_code]=123-4567';
+        $expected = 'transaction%5Bcustomer%5D%5Bbilling_address%5D%5Bcity%5D=Kichijoji&transaction%5Bcustomer%5D%5Bbilling_address%5D%5Bcountry%5D=JP&transaction%5Bcustomer%5D%5Bbilling_address%5D%5Bextended_address%5D=Suite+ABC&transaction%5Bcustomer%5D%5Bbilling_address%5D%5Bphone%5D=999-999-9999&transaction%5Bcustomer%5D%5Bbilling_address%5D%5Bstate%5D=Toyko&transaction%5Bcustomer%5D%5Bbilling_address%5D%5Bstreet_address%5D=123+Sesame+Street&transaction%5Bcustomer%5D%5Bbilling_address%5D%5Bzipcode%5D=123-4567';
         $this->assertContains($expected, $this->create_transaction->getSignedUrl($this->transaction));
     }
 

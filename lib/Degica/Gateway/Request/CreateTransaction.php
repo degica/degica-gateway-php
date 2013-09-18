@@ -34,13 +34,13 @@ class CreateTransaction {
         $endpoint = "/{$this->locale}/api/{$transaction->getMerchant()->getMerchantSlug()}/transactions/{$transaction->getPaymentMethod()}/new";
 
         $params = array(
-            "transaction[amount]={$transaction->getAmount()}",
-            "transaction[currency]={$transaction->getCurrency()}",
-            "transaction[external_order_num]={$transaction->getExternalOrderNum()}",
-            "transaction[return_url]={$transaction->getReturnUrl()}",
-            "transaction[cancel_url]={$transaction->getCancelUrl()}",
-            "transaction[tax]={$transaction->getTax()}",
-            "timestamp=" . $this->time,
+            "transaction[amount]" => $transaction->getAmount(),
+            "transaction[currency]" => $transaction->getCurrency(),
+            "transaction[external_order_num]" => $transaction->getExternalOrderNum(),
+            "transaction[return_url]" => $transaction->getReturnUrl(),
+            "transaction[cancel_url]" => $transaction->getCancelUrl(),
+            "transaction[tax]" => $transaction->getTax(),
+            "timestamp" => $this->time,
         );
 
         $customer = $transaction->getCustomer();
@@ -53,7 +53,7 @@ class CreateTransaction {
             );
             foreach ($customer_fields as $key => $val) {
                 if ($val) {
-                    $params[] = "transaction[customer][$key]=$val";
+                    $params["transaction[customer][$key]"] = $val;
                 }
             }
 
@@ -70,14 +70,19 @@ class CreateTransaction {
                 );
                 foreach ($address_fields as $key => $val) {
                     if ($val) {
-                        $params[] = "transaction[customer][billing_address][$key]=$val";
+                        $params["transaction[customer][billing_address][$key]"] = $val;
                     }
                 }
             }
         }
-        sort($params);
 
-        $query_string = urldecode(implode('&', $params));
+        $qs_params = array();
+        foreach ($params as $key => $val) {
+            $qs_params[] = urlencode($key) . '=' . urlencode($val);
+        }
+        sort($qs_params);
+
+        $query_string = implode('&', $qs_params);
         $url = $endpoint . '?' . $query_string;
 
         $hmac = hash_hmac('sha256', $url, $secret_key);
